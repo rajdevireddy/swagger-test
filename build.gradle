@@ -1,0 +1,47 @@
+group 'org.test'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+
+    /*Jersey 1.x
+     *
+    compile 'com.sun.jersey:jersey-core:1.19'
+    compile 'com.sun.jersey:jersey-server:1.19'
+    compile 'com.sun.jersey:jersey-servlet:1.19'
+    */
+
+    /*
+     * Swagger dependency for Jerst 1.x REST services.
+
+    compile "io.swagger:swagger-jersey-jaxrs:1.5.7"
+     */
+
+    /*
+     * Jersey 2.x
+     */
+    compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
+    compile 'org.glassfish.jersey.core:jersey-server:2.22.2'
+    compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.22.2'
+
+    /*
+    * Swagger dependency for Jerst 2.x REST services.
+    */
+    compile 'io.swagger:swagger-jersey2-jaxrs:1.5.7'
+
+    compile "org.apache.logging.log4j:log4j-api:2.5"
+    compile "org.apache.logging.log4j:log4j-core:2.5"
+
+}

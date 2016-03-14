@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG" name="phdr-log4j2-conf">
+    <Properties>
+        <!-- -->
+        <Property name="LOG_DIR">../logs</Property>
+	<Property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss Z}|%p||%c{1}|%t|%m%n</Property>
+    </Properties>
+    <Appenders>
+	<Console name="STDOUT" target="SYSTEM_OUT">
+	<PatternLayout pattern="${PATTERN}"/>
+	</Console>
+	<!-- Appender for the applicaiton-->
+	<RollingFile name="APP_LOG_FILE" 
+                     fileName="${LOG_DIR}/phdr.log"
+		     filePattern="${LOG_DIR}/phdr.log.%d{yyyy-MM-dd}">
+	    <PatternLayout pattern="${PATTERN}"/>
+	    <TimeBasedTriggeringPolicy/>
+	</RollingFile>
+	<!-- Appender for  logs other than app-->
+	<RollingFile name="SERVER_LOG_FILE"
+	             fileName="${LOG_DIR}/server.log"
+	             filePattern="${LOG_DIR}/server.log.%d{yyyy-MM-dd}">
+	    <PatternLayout pattern="${PATTERN}"/>
+	    <TimeBasedTriggeringPolicy/>
+	</RollingFile>
+	<!-- Test applications log to this-->
+	<!-- Appender for the applicaiton-->
+	<RollingFile name="TEST_APP_LOG_FILE" 
+                     fileName="${LOG_DIR}/testApp.log"
+		     filePattern="${LOG_DIR}/phdr.log.%d{yyyy-MM-dd}">
+	    <PatternLayout pattern="${PATTERN}"/>
+	    <TimeBasedTriggeringPolicy/>
+	</RollingFile>
+	</Appenders>
+     <Loggers>
+	<Root level="WARN">
+           <AppenderRef ref="SERVER_LOG_FILE"/>
+        </Root>
+        <Logger name="com.liaison.phdr" level="DEBUG" additivity="false">
+            <!-- Using specific app log file for log entries from this logger -->
+	    <AppenderRef ref="APP_LOG_FILE"/>
+        </Logger>
+		<Logger name="com.test" level="DEBUG" additivity="false">
+            <!-- Using specific app log file for log entries from this logger -->
+	    <AppenderRef ref="TEST_APP_LOG_FILE"/>
+        </Logger>
+     </Loggers>
+</Configuration>
